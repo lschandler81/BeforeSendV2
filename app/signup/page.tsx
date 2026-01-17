@@ -53,13 +53,13 @@ export default function SignupPage() {
          <Link href="/" className="flex justify-center mb-6">
             <div className="relative h-10 w-40">
                 <Image
-                    src="/brand/logo-light.png"
+                    src="/brand/logo-light.svg"
                     className="dark:hidden object-contain"
                     alt="BeforeSend"
                     fill
                 />
                  <Image
-                    src="/brand/logo-dark.png"
+                    src="/brand/logo-dark.svg"
                     className="hidden dark:block object-contain"
                     alt="BeforeSend"
                     fill
@@ -128,15 +128,16 @@ export default function SignupPage() {
                     {[1, 2, 3, 4].map((i) => (
                         <div
                             key={i}
-                            className={`flex-1 rounded-full transition-colors duration-300 ${
+                            className={`flex-1 rounded-full transition-all duration-300 ${
                                 i <= strength
-                                    ? strength < 2 ? 'bg-rose-500' : strength < 4 ? 'bg-amber-500' : 'bg-emerald-500'
+                                    ? 'bg-brand-teal shadow-[0_0_10px_rgba(44,206,223,0.5)]'
                                     : 'bg-zinc-200 dark:bg-zinc-700'
                             }`}
+                            style={{ opacity: i <= strength ? 0.4 + (i * 0.15) : 1 }}
                         />
                     ))}
                 </div>
-                <p className="text-xs text-zinc-500 mt-1 text-right">
+                <p className="text-xs text-brand-teal mt-1 text-right font-medium">
                     {strength < 2 ? 'Weak' : strength < 4 ? 'Medium' : 'Strong'}
                 </p>
             </div>

@@ -12,6 +12,8 @@ export function Hero() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showResult, setShowResult] = useState(false);
 
+  const [step, setStep] = useState(0); // 0: Typing, 1: Ready, 2: Analyzing, 3: Result
+
   useEffect(() => {
     let i = 0;
     const interval = setInterval(() => {
@@ -19,21 +21,18 @@ export function Hero() {
       i++;
       if (i > fullText.length) {
         clearInterval(interval);
-        setTimeout(() => setIsAnalyzing(true), 500);
+        setStep(1); // Ready for input
       }
-    }, 50);
+    }, 30);
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (isAnalyzing) {
-      const timer = setTimeout(() => {
-        setIsAnalyzing(false);
-        setShowResult(true);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [isAnalyzing]);
+  const runSimulation = () => {
+    setStep(2);
+    setTimeout(() => {
+        setStep(3);
+    }, 2000);
+  }
 
   return (
     <section className="relative pt-32 pb-20 overflow-hidden">
@@ -95,14 +94,33 @@ export function Hero() {
                 </div>
 
                 {/* Terminal Body */}
-                <div className="p-6 min-h-[320px] font-mono text-sm">
+                <div className="p-6 min-h-[320px] font-mono text-sm relative">
                     <div className="text-zinc-300 whitespace-pre-wrap">
                         {typingText}
-                        <span className="animate-pulse inline-block w-2 h-4 bg-brand-teal ml-1 align-middle"></span>
+                        {step === 0 && <span className="animate-pulse inline-block w-2 h-4 bg-brand-teal ml-1 align-middle"></span>}
                     </div>
 
+                    {/* Interactive Controls */}
+                    {step === 1 && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="mt-8 p-4 bg-zinc-900 border border-zinc-800 rounded-lg flex flex-col sm:flex-row gap-4 items-center justify-between"
+                        >
+                            <div className="flex items-center gap-2">
+                                <div className="text-zinc-500 text-xs uppercase tracking-wider">Target Lens:</div>
+                                <div className="px-3 py-1 bg-brand-teal/10 text-brand-teal rounded-full text-xs font-bold border border-brand-teal/20">
+                                    Budget Hawk CFO
+                                </div>
+                            </div>
+                            <Button size="sm" onClick={runSimulation} className="w-full sm:w-auto animate-pulse">
+                                Run Diagnostic
+                            </Button>
+                        </motion.div>
+                    )}
+
                     {/* Analysis Overlay */}
-                    {isAnalyzing && (
+                    {step === 2 && (
                         <div className="mt-8 space-y-2">
                             <div className="flex items-center gap-2 text-brand-teal">
                                 <span className="animate-spin">⟳</span>
@@ -120,31 +138,34 @@ export function Hero() {
                     )}
 
                     {/* Result Overlay */}
-                    {showResult && (
+                    {step === 3 && (
                          <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
                             className="mt-6 border-t border-zinc-800 pt-6"
                          >
                             <div className="flex items-center justify-between mb-4">
-                                <span className="text-zinc-400">DIAGNOSTIC SCORE</span>
-                                <span className="text-rose-500 font-bold text-xl">32/100</span>
+                                <span className="text-zinc-400 font-mono text-xs uppercase tracking-widest">Diagnostic Score</span>
+                                <span className="text-rose-500 font-bold text-xl">12/100</span>
                             </div>
 
                             <div className="space-y-3">
                                 <div className="flex items-start gap-3 p-3 bg-rose-500/10 border border-rose-500/20 rounded-lg">
                                     <ShieldAlert className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />
                                     <div>
-                                        <p className="text-rose-200 font-bold mb-1">Tone Critical</p>
-                                        <p className="text-rose-200/80 text-xs">Perceived as authoritarian. Risk of team alienation high.</p>
+                                        <p className="text-rose-200 font-bold mb-1 text-xs uppercase tracking-wide">Tone Critical</p>
+                                        <p className="text-rose-200/80 text-xs">Authoritarian phrasing detects high risk of insubordination.</p>
                                     </div>
                                 </div>
-                                <div className="flex items-start gap-3 p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
-                                    <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
-                                    <div>
-                                        <p className="text-amber-200 font-bold mb-1">Missing Context</p>
-                                        <p className="text-amber-200/80 text-xs">Drastic cuts without rationale triggers anxiety.</p>
+
+                                <div className="mt-4 p-4 bg-brand-teal/5 border border-brand-teal/20 rounded-lg relative overflow-hidden group cursor-pointer hover:bg-brand-teal/10 transition-colors">
+                                    <div className="flex items-center justify-between mb-2">
+                                         <p className="text-brand-teal font-bold text-xs uppercase tracking-wide">Surgical Pivot</p>
+                                         <ArrowRight className="w-4 h-4 text-brand-teal opacity-50 group-hover:opacity-100 transition-opacity" />
                                     </div>
+                                    <p className="text-zinc-300 text-sm italic">
+                                        "To ensure we hit our Q3 targets, we need to optimize spend by 20%. Let's review the line items together to find the best path forward."
+                                    </p>
                                 </div>
                             </div>
                          </motion.div>

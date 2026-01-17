@@ -22,7 +22,7 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-2">
             <div className="relative h-8 w-32">
                 <Image
-                    src={resolvedTheme === "dark" ? "/brand/logo-dark.png" : "/brand/logo-light.png"}
+                    src={resolvedTheme === "dark" ? "/brand/logo-dark.svg" : "/brand/logo-light.svg"}
                     alt="BeforeSend"
                     fill
                     className="object-contain object-left"
