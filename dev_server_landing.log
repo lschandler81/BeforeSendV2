@@ -1,0 +1,34 @@
+
+> beforesendv2@1.0.0 dev
+> next dev
+
+▲ Next.js 16.1.2 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+
+✓ Starting...
+✓ Ready in 2.9s
+○ Compiling / ...
+ GET / 200 in 7.5s (compile: 6.7s, render: 836ms)
+ GET /brand/logo-light.png 404 in 1044ms (compile: 961ms, render: 83ms)
+⨯ The requested resource isn't a valid image for /brand/logo-light.png received null
+ GET /login 200 in 660ms (compile: 591ms, render: 69ms)
+ GET /brand/logo-light.png 404 in 60ms (compile: 7ms, render: 53ms)
+⨯ The requested resource isn't a valid image for /brand/logo-light.png received null
+ GET /signup 200 in 634ms (compile: 524ms, render: 110ms)
+ GET /brand/logo-light.png 404 in 51ms (compile: 7ms, render: 45ms)
+⨯ The requested resource isn't a valid image for /brand/logo-light.png received null
+ GET /brand/logo-light.png 404 in 54ms (compile: 10ms, render: 44ms)
+⨯ The requested resource isn't a valid image for /brand/logo-light.png received null
+✓ Compiled in 85ms
+✓ Compiled in 74ms
+✓ Compiled in 74ms
+✓ Compiled in 27ms
+✓ Compiled in 29ms
+✓ Compiled in 42ms
+✓ Compiled in 29ms
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Compiled in 604ms
+○ Compiling middleware ...
+✓ Compiled in 281ms
+✓ Compiled in 3.5s
