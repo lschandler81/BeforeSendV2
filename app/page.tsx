@@ -63,12 +63,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-brand-navy via-[#0f1e2a] to-brand-navy">
       {/* Header */}
-      <header className="bg-slate-950/50 backdrop-blur-sm shadow-lg border-b border-slate-700">
+      <header className="bg-brand-navy/80 backdrop-blur-sm shadow-lg border-b border-zinc-800/50">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <h1 className="text-3xl font-bold text-white">BeforeSend</h1>
-          <p className="text-slate-300 mt-1">Check your message tone before sending</p>
+          <p className="text-zinc-300 mt-1">Check your message tone before sending</p>
         </div>
       </header>
 
@@ -76,17 +76,17 @@ export default function Home() {
       <main className="flex-1 px-6 py-12">
         <div className="w-full max-w-6xl mx-auto space-y-8">
           {/* Input Section */}
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-2xl p-8 space-y-6 border border-slate-700">
+          <div className="bg-brand-navy/50 backdrop-blur-xl rounded-xl shadow-2xl p-8 space-y-6 border border-brand-teal/20">
             {/* Dropdown */}
             <div>
-              <label htmlFor="lens-select" className="block text-sm font-medium text-slate-300 mb-2">
+              <label htmlFor="lens-select" className="block text-sm font-medium text-zinc-300 mb-2">
                 Select Lens
               </label>
               <select
                 id="lens-select"
                 value={selectedLens}
                 onChange={(e) => setSelectedLens(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                className="w-full px-4 py-3 bg-brand-navy border border-zinc-800 rounded-xl text-white focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition"
               >
                 {lensOptions.map((option) => (
                   <option key={option} value={option}>
@@ -98,7 +98,7 @@ export default function Home() {
 
             {/* Text Area */}
             <div>
-              <label htmlFor="email-input" className="block text-sm font-medium text-slate-300 mb-2">
+              <label htmlFor="email-input" className="block text-sm font-medium text-zinc-300 mb-2">
                 Your Email
               </label>
               <textarea
@@ -108,7 +108,7 @@ export default function Home() {
                 placeholder="Type your email here..."
                 rows={12}
                 disabled={loading}
-                className="w-full px-4 py-3 bg-slate-900 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition resize-none disabled:opacity-50"
+                className="w-full px-4 py-3 bg-brand-navy border border-zinc-800 rounded-xl text-white placeholder-zinc-500 focus:ring-2 focus:ring-brand-teal focus:border-brand-teal outline-none transition resize-none disabled:opacity-50"
               />
             </div>
 
@@ -116,7 +116,7 @@ export default function Home() {
             <button
               onClick={handleCheck}
               disabled={loading || !emailText.trim()}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-slate-700 disabled:to-slate-700 disabled:cursor-not-allowed text-white font-semibold py-4 px-6 rounded-lg transition duration-200 shadow-lg hover:shadow-xl"
+              className="w-full bg-brand-teal hover:bg-brand-teal/90 disabled:bg-zinc-700 disabled:cursor-not-allowed text-brand-navy disabled:text-zinc-400 font-bold py-4 px-6 rounded-xl transition duration-200 shadow-lg hover:shadow-brand-teal/50"
             >
               {loading ? "Simulating recipient's brain..." : "Check Tone"}
             </button>
@@ -126,7 +126,7 @@ export default function Home() {
           {analysisResult && (
             <div className="space-y-6 animate-fade-in">
               {/* Score Circle */}
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-slate-700 flex flex-col items-center">
+              <div className="bg-brand-navy/50 backdrop-blur-xl rounded-xl shadow-2xl p-8 border border-brand-teal/20 flex flex-col items-center">
                 <h2 className="text-2xl font-bold text-white mb-6">BeforeSend Score</h2>
                 <div
                   className={`relative w-48 h-48 rounded-full ${
@@ -139,7 +139,7 @@ export default function Home() {
                     {analysisResult.score}
                   </span>
                 </div>
-                <p className="text-slate-400 mt-4 text-center">
+                <p className="text-zinc-400 mt-4 text-center">
                   {analysisResult.score < 30
                     ? "High Risk - Consider major revisions"
                     : analysisResult.score <= 70
@@ -149,10 +149,10 @@ export default function Home() {
               </div>
 
               {/* Internal Monologue */}
-              <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-slate-700">
+              <div className="bg-brand-navy/50 backdrop-blur-xl rounded-xl shadow-2xl p-8 border border-brand-teal/20">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                   <svg
-                    className="w-6 h-6"
+                    className="w-6 h-6 text-brand-teal"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -166,16 +166,16 @@ export default function Home() {
                   </svg>
                   What they are thinking...
                 </h3>
-                <p className="text-slate-300 italic text-lg leading-relaxed">
+                <p className="text-zinc-300 italic text-lg leading-relaxed">
                   "{analysisResult.monologue}"
                 </p>
               </div>
 
               {/* Pivot / Actionable Fix */}
-              <div className="bg-gradient-to-br from-blue-900/50 to-blue-800/30 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-blue-700">
+              <div className="bg-gradient-to-br from-brand-teal/20 to-brand-teal/10 backdrop-blur-xl rounded-xl shadow-2xl p-8 border border-brand-teal/30">
                 <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                   <svg
-                    className="w-6 h-6"
+                    className="w-6 h-6 text-brand-teal"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -189,7 +189,7 @@ export default function Home() {
                   </svg>
                   Actionable Fix
                 </h3>
-                <p className="text-blue-100 text-lg leading-relaxed">
+                <p className="text-white text-lg leading-relaxed">
                   {analysisResult.pivot}
                 </p>
               </div>
@@ -199,8 +199,8 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-950/50 backdrop-blur-sm border-t border-slate-700 py-4">
-        <div className="max-w-7xl mx-auto px-6 text-center text-sm text-slate-400">
+      <footer className="bg-brand-navy/80 backdrop-blur-sm border-t border-zinc-800/50 py-4">
+        <div className="max-w-7xl mx-auto px-6 text-center text-sm text-zinc-400">
           © 2026 BeforeSend. All rights reserved.
         </div>
       </footer>
