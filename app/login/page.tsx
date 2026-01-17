@@ -40,13 +40,13 @@ export default function LoginPage() {
         <Link href="/" className="flex justify-center mb-6">
             <div className="relative h-10 w-40">
                 <Image
-                    src="/brand/logo-light.png" // Using light logic for both since dark mode brand logo is likely white text
+                    src="/brand/logo-light.svg" // Using light logic for both since dark mode brand logo is likely white text
                     className="dark:hidden object-contain"
                     alt="BeforeSend"
                     fill
                 />
                  <Image
-                    src="/brand/logo-dark.png"
+                    src="/brand/logo-dark.svg"
                     className="hidden dark:block object-contain"
                     alt="BeforeSend"
                     fill

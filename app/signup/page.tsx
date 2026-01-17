@@ -53,13 +53,13 @@ export default function SignupPage() {
          <Link href="/" className="flex justify-center mb-6">
             <div className="relative h-10 w-40">
                 <Image
-                    src="/brand/logo-light.png"
+                    src="/brand/logo-light.svg"
                     className="dark:hidden object-contain"
                     alt="BeforeSend"
                     fill
                 />
                  <Image
-                    src="/brand/logo-dark.png"
+                    src="/brand/logo-dark.svg"
                     className="hidden dark:block object-contain"
                     alt="BeforeSend"
                     fill
