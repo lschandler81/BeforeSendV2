@@ -27,3 +27,7 @@
 ✓ Compiled in 29ms
 ✓ Compiled in 42ms
 ✓ Compiled in 29ms
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+✓ Compiled in 604ms
+○ Compiling middleware ...
+✓ Compiled in 281ms
