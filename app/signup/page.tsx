@@ -2,14 +2,36 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Card } from "@/components/ui/Card";
 import { Check } from "lucide-react";
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { auth } from '@/lib/firebase';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export default function SignupPage() {
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const router = useRouter();
+
+  const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+  const [signInWithGoogle, googleUser, googleLoading, googleError] = useSignInWithGoogle(auth);
+
+  useEffect(() => {
+    if (user || googleUser) {
+        Cookies.set('auth-token', 'true', { expires: 7 });
+        router.push('/dashboard');
+    }
+  }, [user, googleUser, router]);
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await createUserWithEmailAndPassword(email, password);
+  };
 
   const getStrength = (pass: string) => {
     let strength = 0;
@@ -21,6 +43,9 @@ export default function SignupPage() {
   };
 
   const strength = getStrength(password);
+
+  const isLoading = loading || googleLoading;
+  const authError = error || googleError;
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -53,8 +78,17 @@ export default function SignupPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <Card className="py-8 px-4 shadow sm:rounded-xl sm:px-10 glass">
-          <form className="space-y-6" action="#" method="POST">
+        <Card className="py-8 px-4 shadow sm:rounded-xl sm:px-10 glass relative overflow-hidden">
+          {isLoading && (
+              <div className="absolute inset-0 bg-white/50 dark:bg-zinc-900/50 backdrop-blur-sm z-50 flex items-center justify-center">
+                  <div className="flex flex-col items-center gap-3">
+                      <div className="w-8 h-8 border-4 border-brand-teal/30 border-t-brand-teal rounded-full animate-spin"></div>
+                      <span className="text-sm font-medium text-brand-teal">Creating account...</span>
+                  </div>
+              </div>
+          )}
+
+          <form className="space-y-6" onSubmit={handleSignup}>
              <Input
               id="name"
               name="name"
@@ -62,6 +96,8 @@ export default function SignupPage() {
               autoComplete="name"
               required
               label="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
 
             <Input
@@ -71,6 +107,8 @@ export default function SignupPage() {
               autoComplete="email"
               required
               label="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <div>
@@ -116,8 +154,14 @@ export default function SignupPage() {
                 </label>
             </div>
 
+            {authError && (
+              <div className="p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-500 text-sm">
+                {authError.message.replace('Firebase: ', '')}
+              </div>
+            )}
+
             <div>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 Sign up
               </Button>
             </div>
@@ -134,7 +178,7 @@ export default function SignupPage() {
             </div>
 
              <div className="mt-6">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full" onClick={() => signInWithGoogle()} disabled={isLoading}>
                      <svg className="h-5 w-5 mr-2" aria-hidden="true" viewBox="0 0 24 24">
                         <path
                         d="M12.0003 20.45c-4.6667 0-8.45-3.7833-8.45-8.45 0-4.6667 3.7833-8.45 8.45-8.45 4.6667 0 8.45 3.7833 8.45 8.45 0 4.6667-3.7833 8.45-8.45 8.45Z"
