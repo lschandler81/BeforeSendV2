@@ -11,6 +11,8 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "brand-navy": "#182736",
+        "brand-teal": "#2ccedf",
       },
     },
   },
