@@ -3,13 +3,33 @@
 @variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-background: #09090b;
-  --color-foreground: #fafafa;
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+
+  --color-brand-navy: #182736;
+  --color-brand-teal: #2ccedf;
+  --color-slate-50: #f8fafc;
+  --color-slate-200: #e2e8f0;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-emerald-500: #10b981;
+  --color-amber-500: #f59e0b;
+  --color-rose-500: #f43f5e;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #182736;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 @keyframes fade-in {
