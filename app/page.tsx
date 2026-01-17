@@ -1,82 +1,20 @@
-"use client";
-
-import { useState } from "react";
-
-interface AnalysisResult {
-  score: number;
-  monologue: string;
-  pivot: string;
-}
+import { Hero } from "@/components/landing/Hero";
+import { Features } from "@/components/landing/Features";
+import { Pricing } from "@/components/landing/Pricing";
+import { Footer } from "@/components/landing/Footer";
+import { Navbar } from "@/components/landing/Navbar";
 
 export default function Home() {
-  const [emailText, setEmailText] = useState("");
-  const [selectedLens, setSelectedLens] = useState("CFO (Budget Protector)");
-  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const lensOptions = [
-    "CFO (Budget Protector)",
-    "CTO (Practical Gatekeeper)",
-    "HR Lead (Cultural Gatekeeper)",
-    "End User (Practical Effort)",
-  ];
-
-  const handleCheck = async () => {
-    if (!emailText.trim()) return;
-
-    setLoading(true);
-    setAnalysisResult(null);
-
-    try {
-      const response = await fetch("/api/analyze", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          emailText,
-          lensType: selectedLens,
-        }),
-      });
-
-      const result = await response.json();
-      
-      if (!response.ok) {
-        console.error("API Error:", result);
-        alert(`Analysis failed: ${result.error}\n\nDetails: ${result.details || "Unknown error"}`);
-        return;
-      }
-
-      setAnalysisResult(result);
-    } catch (error) {
-      console.error("Error analyzing email:", error);
-      alert("Failed to analyze email. Please check the console for details.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getScoreColor = (score: number) => {
-    if (score < 30) return { bg: "bg-red-500", ring: "ring-red-500/30" };
-    if (score <= 70) return { bg: "bg-yellow-500", ring: "ring-yellow-500/30" };
-    return { bg: "bg-green-500", ring: "ring-green-500/30" };
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-brand-navy via-[#0f1e2a] to-brand-navy">
-      {/* Header */}
-      <header className="bg-brand-navy/80 backdrop-blur-sm shadow-lg border-b border-zinc-800/50">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <h1 className="text-3xl font-bold text-white">BeforeSend</h1>
-          <p className="text-zinc-300 mt-1">Check your message tone before sending</p>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="flex-1 px-6 py-12">
-        <div className="w-full max-w-6xl mx-auto space-y-8">
-          {/* Input Section */}
-          <div className="bg-brand-navy/50 backdrop-blur-xl rounded-xl shadow-2xl p-8 space-y-6 border border-brand-teal/20">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
+      <Navbar />
+      <Hero />
+      <Features />
+      <Pricing />
+      <Footer />
+    </div>
+  );
+}>
             {/* Dropdown */}
             <div>
               <label htmlFor="lens-select" className="block text-sm font-medium text-zinc-300 mb-2">

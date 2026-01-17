@@ -4,3 +4,18 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Firebase client-side config variables (safe to expose)
+[build.environment]
+  NODE_VERSION = "20"
+
+# These variables are intentionally public (client-side Firebase config)
+# Set them in Netlify UI: Site settings > Environment variables
+# NEXT_PUBLIC_FIREBASE_API_KEY
+# NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN  
+# NEXT_PUBLIC_FIREBASE_PROJECT_ID
+# NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+# NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+# NEXT_PUBLIC_FIREBASE_APP_ID
+# NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+# GEMINI_API_KEY (mark as secret)
